@@ -200,13 +200,13 @@ main() {
     # Test graph generator
     if [ -d "test-code-data" ]; then
         print_info "Testing graph generator..."
-        if .ai-gov/tools/venv/bin/python .ai-gov/tools/graph-generator.py python test-code-data/ .ai-gov/code-graph.json 2>&1 | grep -q "Graph saved to"; then
+        if .ai-gov/tools/venv/bin/python .ai-gov/tools/graph-generator.py python test-code-data/ 2>&1 | grep -q "Graph saved to"; then
             echo -e "${GREEN}✓${NC} Graph generator completed successfully"
-            run_test "Code graph file created" "[ -f .ai-gov/code-graph.json ]"
+            run_test "Code graph file created" "[ -f test-code-data/.ai-gov/code-graph.json ]"
 
             # Verify graph content
-            if [ -f .ai-gov/code-graph.json ]; then
-                local node_count=$(cat .ai-gov/code-graph.json | grep -o '"id":' | wc -l)
+            if [ -f test-code-data/.ai-gov/code-graph.json ]; then
+                local node_count=$(cat test-code-data/.ai-gov/code-graph.json | grep -o '"id":' | wc -l)
                 if [ "$node_count" -gt 0 ]; then
                     echo -e "${GREEN}✓${NC} Code graph contains $node_count nodes"
                 else
@@ -218,12 +218,12 @@ main() {
         fi
 
         # Test enricher if available
-        if [ -f .ai-gov/tools/venv/bin/enrich-graph ] && [ -f .ai-gov/code-graph.json ]; then
+        if [ -f .ai-gov/tools/venv/bin/enrich-graph ] && [ -f test-code-data/.ai-gov/code-graph.json ]; then
             print_info "Testing enricher..."
-            if .ai-gov/tools/venv/bin/enrich-graph .ai-gov/code-graph.json . 2>&1 | grep -q "enriched-Layer3"; then
+            if .ai-gov/tools/venv/bin/enrich-graph test-code-data/.ai-gov/code-graph.json test-code-data/ 2>&1 | grep -q "enriched-Layer3"; then
                 echo -e "${GREEN}✓${NC} Enricher completed successfully"
-                run_test "Enriched graph file created" "[ -f .ai-gov/code-graph-enriched.json ]"
-                run_test "Enrichment directory created" "[ -d .ai-gov/enrichment ]"
+                run_test "Enriched graph file created" "[ -f test-code-data/.ai-gov/code-graph-enriched.json ]"
+                run_test "Enrichment directory created" "[ -d test-code-data/.ai-gov/enrichment ]"
             else
                 echo -e "${RED}✗${NC} Enricher failed"
             fi
@@ -273,11 +273,11 @@ main() {
     run_test "Custom file myfile.txt preserved" "[ -f .claude/myfile.txt ]"
 
     # Verify artifacts preserved if they exist (from functional tests)
-    if [ -f .ai-gov/code-graph.json ]; then
-        run_test "Code graph preserved" "[ -f .ai-gov/code-graph.json ]"
+    if [ -f test-code-data/.ai-gov/code-graph.json ]; then
+        run_test "Code graph preserved" "[ -f test-code-data/.ai-gov/code-graph.json ]"
     fi
-    if [ -f .ai-gov/code-graph-enriched.json ]; then
-        run_test "Enriched graph preserved" "[ -f .ai-gov/code-graph-enriched.json ]"
+    if [ -f test-code-data/.ai-gov/code-graph-enriched.json ]; then
+        run_test "Enriched graph preserved" "[ -f test-code-data/.ai-gov/code-graph-enriched.json ]"
     fi
 
     echo
