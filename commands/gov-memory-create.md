@@ -68,8 +68,8 @@ These will be handled by separate processes in later phases.
    - Allow "TBD" or "Not sure yet" as valid answers
 
 3. **Create the memory file**:
-   - Copy the template from `templates/memory-structure.md`
-   - Create `.claude/memory.md` in the project root
+   - Copy the template from `.claude/templates/memory-structure.md`
+   - Create `.ai-gov/memory.md` in the project root
    - Fill in all sections based on user's answers
    - Use [TBD] for anything the user hasn't decided yet
    - Update "Last Updated" with today's date + "Initial memory created from user input"
@@ -77,12 +77,12 @@ These will be handled by separate processes in later phases.
 4. **Output**:
    - Thank the user for the information
    - Show a summary of the captured metadata
-   - Inform them the memory file has been created at `.claude/memory.md`
-   - Suggest next steps (e.g., "Ready to start specification with /spec-start")
+   - Inform them the memory file has been created at `.ai-gov/memory.md`
+   - Suggest next steps (e.g., "Ready to start specification with /gov-spec-start")
 
 ## Success Criteria
 
-- Memory file exists at `.claude/memory.md`
+- Memory file exists at `.ai-gov/memory.md`
 - All sections are filled based on user responses
 - Sections user hasn't decided are marked [TBD]
 - No domain or implementation details are included

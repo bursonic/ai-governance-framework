@@ -63,7 +63,7 @@ main() {
     print_info "Fetching latest framework version..."
 
     # Check if we're running from the framework repo itself
-    if [ -f "$(dirname "$0")/commands/memory-init.md" ]; then
+    if [ -f "$(dirname "$0")/commands/gov-memory-init.md" ]; then
         print_info "Updating from local framework repository..."
         FRAMEWORK_DIR="$(dirname "$0")"
         NEW_VERSION=$(grep "^VERSION=" "$FRAMEWORK_DIR/install.sh" | cut -d'"' -f2)
@@ -232,8 +232,8 @@ main() {
         print_info "New commands/templates were added. Check .claude/ for details."
     fi
 
-    if [ -f ".claude/memory.md" ]; then
-        print_note "Your project memory (.claude/memory.md) was preserved"
+    if [ -f ".ai-gov/memory.md" ]; then
+        print_note "Your project memory (.ai-gov/memory.md) was preserved"
     fi
 
     echo

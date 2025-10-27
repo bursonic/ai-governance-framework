@@ -25,7 +25,7 @@ These will be handled by separate storage in later phases.
 ## Instructions
 
 1. **Read existing memory**:
-   - Load `.claude/memory.md`
+   - Load `.ai-gov/memory.md`
    - Understand what metadata is already known
    - Identify what sections are still [TBD] or incomplete
 

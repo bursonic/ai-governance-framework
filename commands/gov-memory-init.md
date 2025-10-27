@@ -31,8 +31,8 @@ These will be handled by separate storage in later phases.
    - Check for project name/purpose in README or package files
 
 2. **Create the memory file**:
-   - Copy the template from `templates/memory-structure.md` (if available in the framework)
-   - Create `.claude/memory.md` in the project root
+   - Copy the template from `.claude/templates/memory-structure.md`
+   - Create `.ai-gov/memory.md` in the project root
    - Fill in ONLY these sections:
      - **Last Updated**: Today's date + "Initial memory creation"
      - **Project Identity**: Name, purpose (1-2 sentences), type, repo
@@ -49,11 +49,11 @@ These will be handled by separate storage in later phases.
 4. **Output**:
    - Inform the user that memory has been initialized
    - Show the Project Identity and Project Structure sections
-   - Suggest next steps (e.g., "Run /memory-update to fill in remaining metadata")
+   - Suggest next steps (e.g., "Run /gov-memory-update to fill in remaining metadata")
 
 ## Success Criteria
 
-- Memory file exists at `.claude/memory.md`
+- Memory file exists at `.ai-gov/memory.md`
 - Project Identity section has name, purpose, type
 - Project Structure section shows directory layout
 - Technology Stack has language and package manager

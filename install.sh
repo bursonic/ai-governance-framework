@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Framework version
-VERSION="0.1.0"
+VERSION="0.2.0"
 
 # GitHub repository (update this when hosted)
 REPO_URL="${AI_GOV_REPO_URL:-https://github.com/bursonic/ai-governance-framework.git}"
@@ -73,7 +73,7 @@ main() {
     print_info "Fetching framework files..."
 
     # Check if we're running from the framework repo itself
-    if [ -f "$(dirname "$0")/commands/memory-init.md" ]; then
+    if [ -f "$(dirname "$0")/commands/gov-memory-init.md" ]; then
         print_info "Installing from local framework repository..."
         FRAMEWORK_DIR="$(dirname "$0")"
     else
@@ -159,7 +159,8 @@ Custom files will never be touched by framework updates.
 
 ## Project Memory
 
-Your project memory file (`.claude/memory.md`) is preserved during updates.
+Your project memory file (`.ai-gov/memory.md`) is preserved during updates.
+This file lives outside `.claude/` to keep AI governance artifacts separate.
 
 ## Updates
 
@@ -190,8 +191,9 @@ EOF
     echo "Next steps:"
     echo "  1. Read: .claude/AI_GOVERNANCE_README.md"
     echo "  2. Initialize project memory:"
-    echo "     - For existing projects: Use /memory-init command"
-    echo "     - For new projects: Use /memory-create command"
+    echo "     - For existing projects: Use /gov-memory-init command"
+    echo "     - For new projects: Use /gov-memory-create command"
+    echo "  3. Project memory will be stored in: .ai-gov/memory.md"
     echo
     print_info "Custom commands should use 'custom-*' or '*-custom' naming"
     echo
