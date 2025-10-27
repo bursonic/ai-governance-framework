@@ -5,3 +5,8 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Python
+.ai-gov/tools/venv/
+*.pyc
+__pycache__/

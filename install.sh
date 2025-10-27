@@ -121,6 +121,42 @@ main() {
         exit 1
     fi
 
+    # Install framework tools in .ai-gov (separate from .claude)
+    print_info "Setting up framework tools..."
+    mkdir -p .ai-gov/tools
+
+    # Copy tools from framework
+    if [ -d "$FRAMEWORK_DIR/.ai-gov/tools" ]; then
+        cp -r "$FRAMEWORK_DIR"/.ai-gov/tools/* ".ai-gov/tools/"
+        print_success "Copied framework tools"
+    fi
+
+    # Check if Python 3 is available
+    if ! command -v python3 &> /dev/null; then
+        print_error "Python 3 is required but not installed"
+        print_info "Please install Python 3 and run the installer again"
+        exit 1
+    fi
+
+    # Create virtual environment for framework tools
+    print_info "Creating Python virtual environment..."
+    python3 -m venv .ai-gov/tools/venv 2>/dev/null || {
+        print_error "Failed to create virtual environment"
+        print_info "Make sure python3-venv is installed (apt install python3-venv on Ubuntu/Debian)"
+        exit 1
+    }
+
+    # Install Python dependencies
+    if [ -f ".ai-gov/tools/requirements.txt" ]; then
+        print_info "Installing Python dependencies..."
+        .ai-gov/tools/venv/bin/pip install --quiet --upgrade pip
+        .ai-gov/tools/venv/bin/pip install --quiet -r .ai-gov/tools/requirements.txt || {
+            print_error "Failed to install Python dependencies"
+            exit 1
+        }
+        print_success "Python dependencies installed"
+    fi
+
     # Copy rules (claude_code.md) if it exists
     if [ -f "$FRAMEWORK_DIR/rules/claude_code.md" ]; then
         print_info "Installing rules..."
