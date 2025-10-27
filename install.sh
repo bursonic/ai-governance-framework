@@ -157,6 +157,20 @@ main() {
         print_success "Python dependencies installed"
     fi
 
+    # Install code-graph-enricher package from GitHub
+    print_info "Installing code-graph-enricher..."
+    .ai-gov/tools/venv/bin/pip install --quiet git+https://github.com/bursonic/code-graph-enricher.git || {
+        print_error "Failed to install code-graph-enricher"
+        print_info "Continuing without enricher (graph generation will still work)"
+    }
+
+    # Check if enricher was installed successfully
+    if .ai-gov/tools/venv/bin/enrich-graph -h &>/dev/null; then
+        print_success "code-graph-enricher installed (enrich-graph command available)"
+    else
+        print_info "code-graph-enricher not available (optional)"
+    fi
+
     # Copy rules (claude_code.md) if it exists
     if [ -f "$FRAMEWORK_DIR/rules/claude_code.md" ]; then
         print_info "Installing rules..."
@@ -164,6 +178,14 @@ main() {
         cp "$FRAMEWORK_DIR/rules/claude_code.md" ".claude/claude_code.md"
         chmod 444 ".claude/claude_code.md"  # Read-only
         print_success "Installed rules: claude_code.md"
+    fi
+
+    # Copy uninstall script
+    if [ -f "$FRAMEWORK_DIR/uninstall.sh" ]; then
+        print_info "Installing uninstall script..."
+        cp "$FRAMEWORK_DIR/uninstall.sh" "uninstall.sh"
+        chmod 755 "uninstall.sh"
+        print_success "Installed uninstall script (run ./uninstall.sh to remove framework)"
     fi
 
     # Write version file
@@ -230,6 +252,8 @@ EOF
     echo "     - For existing projects: Use /gov-memory-init command"
     echo "     - For new projects: Use /gov-memory-create command"
     echo "  3. Project memory will be stored in: .ai-gov/memory.md"
+    echo "  4. Generate code graph: Use /gov-graph-generate command"
+    echo "  5. Enrich code graph: Use /gov-graph-enrich command"
     echo
     print_info "Custom commands should use 'custom-*' or '*-custom' naming"
     echo

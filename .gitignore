@@ -10,3 +10,7 @@ Thumbs.db
 .ai-gov/tools/venv/
 *.pyc
 __pycache__/
+
+# Generated test artifacts (but keep test-code-data/ source files)
+test-install/
+*.log

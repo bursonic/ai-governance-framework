@@ -117,3 +117,16 @@ Inform the user:
 - Nodes have unique IDs and types
 - Edges reference valid node IDs
 - User sees summary of graph statistics
+
+## Next Steps
+
+After generating the base code graph, you can enrich it with semantic and domain knowledge:
+
+```
+Use /gov-graph-enrich command to add:
+- Layer 1: Structural analysis (classification, complexity, dependencies)
+- Layer 2: Semantic analysis (patterns, naming, method roles)
+- Layer 3: Domain analysis (concepts, business rules, relationships)
+```
+
+The enriched graph provides deeper insights for AI context and code understanding.

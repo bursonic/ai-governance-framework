@@ -14,7 +14,7 @@ from datetime import datetime
 import hashlib
 
 try:
-    from tree_sitter_languages import get_language, get_parser
+    import tree_sitter_languages as tsl
 except ImportError:
     print("Error: tree-sitter-languages not installed. Run: pip install tree-sitter-languages")
     sys.exit(1)
@@ -47,8 +47,8 @@ class CodeGraphGenerator:
     def __init__(self, root_path: str, language: str, exclude_patterns: Optional[List[str]] = None):
         self.root_path = Path(root_path).resolve()
         self.language = language
-        self.parser = get_parser(language)
-        self.lang_obj = get_language(language)
+        self.parser = tsl.get_parser(language)
+        self.lang_obj = tsl.get_language(language)
         self.nodes: List[Node] = []
         self.edges: List[Edge] = []
         self.exclude_patterns = exclude_patterns or [
